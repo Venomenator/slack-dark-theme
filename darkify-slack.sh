@@ -3,7 +3,10 @@
 
 SLACK_INTEROP_JS="/Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js"
 
-# Insipred from earlduque, thanks.
+# Kill the Slack App using the PID
+kill -9 $(ps -A | grep -m1 Slack | awk '{print $1}')
+
+# Inspired from earlduque, thanks.
 if [ -z "`grep tt__customCss ${SLACK_INTEROP_JS}`" ]; then
     # Backup original CSS for reverts:
     cp ${SLACK_INTEROP_JS} ${SLACK_INTEROP_JS}.bak
@@ -13,3 +16,6 @@ if [ -z "`grep tt__customCss ${SLACK_INTEROP_JS}`" ]; then
 else
     echo "Dark theme already present on Slack."
 fi
+
+# Launch Slack
+open -a Slack
